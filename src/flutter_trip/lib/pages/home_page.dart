@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:flutter_trip/dao/home_dao.dart';
+import 'package:flutter_trip/model/home_model.dart';
 
 const APPBAR_SCRoll_offseT = 100;
 
@@ -15,6 +19,13 @@ class _HomePageState extends State<HomePage> {
     'https://git.imweb.io/dotnet9/imgs/raw/master/dotnet9_com/wp-content/uploads/2020/02/04_AduSkin_HeartFM.png'
   ];
   double appBarAlpha = 0;
+  String resultString = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCRoll_offseT;
@@ -27,6 +38,19 @@ class _HomePageState extends State<HomePage> {
       appBarAlpha = alpha;
     });
     print(appBarAlpha);
+  }
+
+  loadData() async {
+    try {
+      HomeModel model = await HomeDao.fetch();
+      setState(() {
+        resultString = json.encode(model);
+      });
+    } catch (e) {
+      setState(() {
+        resultString = e.toString();
+      });
+    }
   }
 
   @override
@@ -67,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: 800,
                     child: ListTile(
-                      title: Text('test'),
+                      title: Text(resultString),
                     ),
                   )
                 ],
