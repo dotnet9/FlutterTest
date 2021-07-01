@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:flutter_trip/dao/home_dao.dart';
+import 'package:flutter_trip/model/common_model.dart';
 import 'package:flutter_trip/model/home_model.dart';
+import 'package:flutter_trip/widget/local_nav.dart';
 
 const APPBAR_SCRoll_offseT = 100;
 
@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     'https://git.imweb.io/dotnet9/imgs/raw/master/dotnet9_com/wp-content/uploads/2020/02/04_AduSkin_HeartFM.png'
   ];
   double appBarAlpha = 0;
-  String resultString = '';
+  List<CommonModel> localNavList = [];
 
   @override
   void initState() {
@@ -44,18 +44,17 @@ class _HomePageState extends State<HomePage> {
     try {
       HomeModel model = await HomeDao.fetch();
       setState(() {
-        resultString = json.encode(model);
+        localNavList = model.localNavList;
       });
     } catch (e) {
-      setState(() {
-        resultString = e.toString();
-      });
+      print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f2),
       body: Stack(
         children: [
           MediaQuery.removePadding(
@@ -88,10 +87,16 @@ class _HomePageState extends State<HomePage> {
                       pagination: SwiperPagination(),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: LocalNav(
+                      localNavList: localNavList,
+                    ),
+                  ),
                   Container(
                     height: 800,
                     child: ListTile(
-                      title: Text(resultString),
+                      title: Text('resultString'),
                     ),
                   )
                 ],
