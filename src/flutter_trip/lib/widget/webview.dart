@@ -24,12 +24,24 @@ class WebView extends StatefulWidget {
 class _WebViewState extends State<WebView> {
   final webviewReference = FlutterWebviewPlugin();
   late StreamSubscription<String> _onUrlChanged;
+  StreamSubscription<WebViewStateChanged> _onStateChanged;
+  Stream<WebViewHttpError> _onHttpError;
 
   @override
   void initState() {
     super.initState();
     webviewReference.close();
-    _onUrlChanged = webviewReference.onUrlChanged.listen((String url) {});
+    _onUrlChanged =
+        webviewReference.onUrlChanged.listen((WebViewStateChanged state) {
+      switch (state.type) {
+        case _WebViewState.startLoad:
+          break;
+        default:
+          break;
+      }
+    });
+
+    _onHttpError = webviewReference
   }
 
   @override
