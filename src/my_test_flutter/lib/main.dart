@@ -1,7 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'components/narbar.dart';
-import 'components/will_pop_scope_test_route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,18 +32,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("title"),
-        ),
-        body: Center(
-          // ignore: prefer_const_literals_to_create_immutables
-          child: Column(children: [
-            //背景为蓝色，则title自动为白色
-            const NavBar(color: Colors.blue, title: "标题"),
-            //背景为白色，则title自动为黑色
-            const NavBar(color: Colors.white, title: "标题"),
-          ]),
-        ));
+    return const Scaffold(
+      body: Text("dd"),
+    );
   }
 }
