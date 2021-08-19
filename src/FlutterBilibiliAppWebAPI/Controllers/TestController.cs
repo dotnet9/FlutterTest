@@ -14,9 +14,9 @@ namespace FlutterBilibiliAppWebAPI.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public async Task<MessageModel<object>> Get(string requestParams)
+        public async Task<MessageModel<dynamic>> Get(string requestParams)
         {
-            return MessageModel<object>.Success(response: (code: 0, method: "GET", requestParams));
+            return MessageModel<dynamic>.Success(response: (code: 0, method: "GET", requestParams));
         }
     }
 }

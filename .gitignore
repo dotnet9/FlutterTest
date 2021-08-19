@@ -19,3 +19,6 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+src/FlutterBilibiliAppWebAPI/bin/
+src/FlutterBilibiliAppWebAPI/obj/
+src/FlutterBilibiliAppWebAPI/.vs/
