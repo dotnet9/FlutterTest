@@ -5,7 +5,7 @@ abstract class BaseRequest {
   var pathParams;
   var useHttps = true;
   String authority() {
-    return "api.devio.org";
+    return "localhost:5001";
   }
 
   HttpMethod httpMethod();
@@ -25,9 +25,9 @@ abstract class BaseRequest {
 
     // http和https切换
     if (useHttps) {
-      uri = Uri.https(authority(), pathStr, pathParams);
+      uri = Uri.https(authority(), pathStr, params);
     } else {
-      uri = Uri.http(authority(), pathStr, pathParams);
+      uri = Uri.http(authority(), pathStr, params);
     }
     print('url:${uri.toString()}');
     return uri.toString();

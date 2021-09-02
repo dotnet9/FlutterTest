@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilibili_app/http/core/hi_net.dart';
+import 'package:flutter_bilibili_app/http/request/test_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,10 +31,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _incrementCounter() async {
+    TestRequest request = TestRequest();
+    request.add('aa', 'bbb').add('bb', 'cccc');
+    var result = await HiNet.instance.fire(request);
+    print(result);
   }
 
   @override

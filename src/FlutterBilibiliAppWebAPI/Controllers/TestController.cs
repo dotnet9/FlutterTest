@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FlutterBilibiliAppWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +13,7 @@ namespace FlutterBilibiliAppWebAPI.Controllers
         [HttpGet]
         public async Task<MessageModel<dynamic>> Get(string requestParams)
         {
-            return MessageModel<dynamic>.Success(response: (code: 0, method: "GET", requestParams));
+            return await Task.Run(()=> MessageModel<dynamic>.Success(response: (code: 0, method: "GET", requestParams)));
         }
     }
 }
