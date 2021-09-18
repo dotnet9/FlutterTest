@@ -23,14 +23,17 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return Center(
-      child: SizedBox(
-        child: ClipOval(
-          child: Image.asset(
-            'images/beauty.jpeg',
-            fit: BoxFit.cover),
+      child: Container(
+        child: Image.network(
+          'https://dotnet9.com/wp-content/uploads/2020/05/logo-head.png',
+          fit: BoxFit.contain,
+          repeat: ImageRepeat.repeat,
         ),
-        width: 250,
-        height: 250,
+        width: 400,
+        height: 400,
+        decoration: const BoxDecoration(
+          color: Colors.yellow
+        ),
       ),
     );
   }
