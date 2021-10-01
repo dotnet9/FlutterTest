@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jdshop/pages/tabs/cart.dart';
-import 'package:flutter_jdshop/pages/tabs/category.dart';
-import 'package:flutter_jdshop/pages/tabs/user.dart';
-import 'package:flutter_jdshop/pages/tabs/home.dart';
+import 'cart_page.dart';
+import 'category_page.dart';
+import 'user_page.dart';
+import 'home_page.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({Key? key}) : super(key: key);
@@ -13,22 +13,29 @@ class Tabs extends StatefulWidget {
 
 class _TabsState extends State<Tabs> {
   int _currentIndex = 0;
-  List _pageList = [HomePage(), CategoryPage(), CartPage(), UserPage()];
+  final List _pageList = [
+    const HomePage(), 
+    const CategoryPage(), 
+    const CartPage(), 
+    const UserPage()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('jdshop'),
       ),
-      body: this._pageList[this._currentIndex],
+      body: _pageList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: this._currentIndex,
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
         type: BottomNavigationBarType.fixed,
+        fixedColor: Colors.red,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
           BottomNavigationBarItem(icon: Icon(Icons.category), label: '分类'),
