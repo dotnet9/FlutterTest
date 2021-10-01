@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jdshop/pages/search.dart';
 import 'package:flutter_jdshop/pages/tabs/tabs.dart';
 
 // 配置路由
 final Map<String, Function> router = {
   '/': (context) => const Tabs(),
+  '/search': (context) => const SearchPage(),
 };
 
 // 固定写法

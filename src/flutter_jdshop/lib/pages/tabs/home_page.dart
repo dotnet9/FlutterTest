@@ -10,6 +10,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Text('我是首页组件');
+    return Center(
+      child: Column(
+        children: [
+          ElevatedButton(
+            child: const Text('跳转一搜索'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
+          )
+        ],
+      ),
+    );
   }
 }
