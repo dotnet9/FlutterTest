@@ -24,7 +24,7 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('jdshop'),
+        title: const Text('LEQU.CO'),
       ),
       body: _pageList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
