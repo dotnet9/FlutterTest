@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jdshop/model/focus_model.dart';
 import 'package:flutter_jdshop/services/screen_adaper.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
@@ -10,33 +12,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map> _imgList = [
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide1.jpeg'},
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide2.gif'},
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide2.jpeg'},
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide3.jpeg'},
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide4.jpeg'},
-    {'url': 'https://dotnet9.com/wp-content/uploads/2021/10/slide5.jpeg'},
-  ];
+  List _focusData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getFocusData();
+  }
+
+  _getFocusData() async {
+    var api = 'https://jd.itying.com/api/focus';
+    var result = await Dio().get(api);
+    var focusList = FocusModel.fromJson(result.data);
+
+    setState(() {
+      _focusData = focusList.result;
+    });
+  }
 
   // 轮播图
   Widget _swiperWidget() {
-    return Container(
-      child: AspectRatio(
-        aspectRatio: 2 / 1,
-        child: Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.network(
-                _imgList[index]["url"],
-                fit: BoxFit.fill,
-              );
-            },
-            itemCount: _imgList.length,
-            pagination: const SwiperPagination(),
-            control: const SwiperControl(),
-            autoplay: true),
-      ),
-    );
+    if (_focusData.length > 0) {
+      return Container(
+        child: AspectRatio(
+          aspectRatio: 2 / 1,
+          child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                String pic = this._focusData[index].pic;
+                return Image.network(
+                  'https://jd.itying.com/${pic.replaceAll("\\", "/")}',
+                  fit: BoxFit.fill,
+                );
+              },
+              itemCount: _focusData.length,
+              pagination: const SwiperPagination(),
+              control: const SwiperControl(),
+              autoplay: true),
+        ),
+      );
+    } else {
+      return const Text('加载中');
+    }
   }
 
   Widget _titleWidget(value) {
@@ -71,8 +87,9 @@ class _HomePageState extends State<HomePage> {
                   height: ScreenAdaper.height(140),
                   width: ScreenAdaper.width(140),
                   margin: EdgeInsets.only(right: ScreenAdaper.width(21)),
-                  child:
-                      Image.network(_imgList[index]['url'], fit: BoxFit.cover),
+                  child: Image.network(
+                      'https://www.itying.com/images/flutter/hot${index + 1}.jpg',
+                      fit: BoxFit.cover),
                 ),
                 Container(
                   padding: EdgeInsets.only(top: ScreenAdaper.height(10)),
@@ -82,12 +99,12 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           },
-          itemCount: _imgList.length,
+          itemCount: 10,
         ));
   }
 
   // 热门推荐
-  _recProductItemWidget(int index) {
+  _recProductItemWidget() {
     var itemWidth = (ScreenAdaper.getScreenWidth() - 30) / 2;
 
     return Container(
@@ -103,7 +120,7 @@ class _HomePageState extends State<HomePage> {
             child: AspectRatio(
               // 防止服务器返回的图片大小不一致导致高度不一致问题
               aspectRatio: 1 / 1,
-              child: Image.network(_imgList[index]['url'], fit: BoxFit.cover),
+              child: Image.network('https://www.itying.com/images/flutter/list1.jpg', fit: BoxFit.cover),
             ),
           ),
           Padding(
@@ -147,9 +164,9 @@ class _HomePageState extends State<HomePage> {
     return ListView(
       children: [
         _swiperWidget(),
-        SizedBox(height: ScreenAdaper.height(10)),
+        SizedBox(height: ScreenAdaper.height(20)),
         _titleWidget('猜你喜欢'),
-        SizedBox(height: ScreenAdaper.height(10)),
+        SizedBox(height: ScreenAdaper.height(20)),
         _youLikeListWidget(),
         _titleWidget('热门推荐'),
         Container(
@@ -158,12 +175,12 @@ class _HomePageState extends State<HomePage> {
             runSpacing: 10,
             spacing: 10,
             children: [
-              _recProductItemWidget(0),
-              _recProductItemWidget(1),
-              _recProductItemWidget(2),
-              _recProductItemWidget(3),
-              _recProductItemWidget(4),
-              _recProductItemWidget(5),
+              _recProductItemWidget(),
+              _recProductItemWidget(),
+              _recProductItemWidget(),
+              _recProductItemWidget(),
+              _recProductItemWidget(),
+              _recProductItemWidget(),
             ],
           ),
         )
