@@ -8,6 +8,13 @@ class FocusModel {
       });
     }
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['result'] = result.map((e) => e.toJson()).toList();
+
+    return data;
+  }
 }
 
 class FocusItemModel {
