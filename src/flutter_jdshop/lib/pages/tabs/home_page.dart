@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_jdshop/config/config.dart';
 import 'package:flutter_jdshop/model/focus_model.dart';
 import 'package:flutter_jdshop/model/product_model.dart';
-import 'package:flutter_jdshop/services/screen_adaper.dart';
+import 'package:flutter_jdshop/services/screen_adapter.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class HomePage extends StatefulWidget {
@@ -85,14 +85,14 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
   Widget _titleWidget(value) {
     return Container(
-      height: ScreenAdaper.height(32),
-      margin: EdgeInsets.only(left: ScreenAdaper.width(20)),
-      padding: EdgeInsets.only(left: ScreenAdaper.width(20)),
+      height: ScreenAdapter.height(32),
+      margin: EdgeInsets.only(left: ScreenAdapter.width(20)),
+      padding: EdgeInsets.only(left: ScreenAdapter.width(20)),
       decoration: BoxDecoration(
           border: Border(
               left: BorderSide(
         color: Colors.red,
-        width: ScreenAdaper.width(10),
+        width: ScreenAdapter.width(10),
       ))),
       child: Text(
         value,
@@ -105,8 +105,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   Widget _hotProductListWidget() {
     if (_hotProductList.isNotEmpty) {
       return Container(
-            height: ScreenAdaper.height(254),
-            padding: EdgeInsets.all(ScreenAdaper.width(20)),
+            height: ScreenAdapter.height(254),
+            padding: EdgeInsets.all(ScreenAdapter.width(20)),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -116,14 +116,14 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                 return Column(
                   children: [
                     Container(
-                      height: ScreenAdaper.height(140),
-                      width: ScreenAdaper.width(140),
-                      margin: EdgeInsets.only(right: ScreenAdaper.width(21)),
+                      height: ScreenAdapter.height(140),
+                      width: ScreenAdapter.width(140),
+                      margin: EdgeInsets.only(right: ScreenAdapter.width(21)),
                       child: Image.network(sPic, fit: BoxFit.cover),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: ScreenAdaper.height(10)),
-                      height: ScreenAdaper.height(44),
+                      padding: EdgeInsets.only(top: ScreenAdapter.height(10)),
+                      height: ScreenAdapter.height(44),
                       child: Text(
                         '￥${_hotProductList[index].price}', 
                         style: const TextStyle(color: Colors.red),),
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   // 推荐商品
   _recProductListWidget() {
 
-    var itemWidth = (ScreenAdaper.getScreenWidth() - 30) / 2;
+    var itemWidth = (ScreenAdapter.getScreenWidth() - 30) / 2;
 
     return Container(
       padding: const EdgeInsets.all(10),
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: ScreenAdaper.height(20)),
+                  padding: EdgeInsets.only(top: ScreenAdapter.height(20)),
                   child: Text(
                     value.title ?? '',
                     maxLines: 2,
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                   )
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: ScreenAdaper.height(20)),
+                  padding: EdgeInsets.only(top: ScreenAdapter.height(20)),
                   child: Stack(
                     children: [
                       Align(
@@ -221,9 +221,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     return ListView(
       children: [
         _swiperWidget(),
-        SizedBox(height: ScreenAdaper.height(20)),
+        SizedBox(height: ScreenAdapter.height(20)),
         _titleWidget('猜你喜欢'),
-        SizedBox(height: ScreenAdaper.height(20)),
+        SizedBox(height: ScreenAdapter.height(20)),
         _hotProductListWidget(),
         _titleWidget('热门推荐'),
         _recProductListWidget()

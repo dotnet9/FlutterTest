@@ -1,6 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ScreenAdaper {
+class ScreenAdapter {
   
   static height(num value) {
     return ScreenUtil().setHeight(value);

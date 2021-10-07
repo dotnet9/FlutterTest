@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jdshop/config/config.dart';
 import 'package:flutter_jdshop/model/cate_model.dart';
-import 'package:flutter_jdshop/services/screen_adaper.dart';
+import 'package:flutter_jdshop/services/screen_adapter.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -11,7 +11,8 @@ class CategoryPage extends StatefulWidget {
   _CategoryPageState createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClientMixin {
+class _CategoryPageState extends State<CategoryPage>
+    with AutomaticKeepAliveClientMixin {
   int _selectedIndex = 0;
   List<CateItemModel> _leftCateList = [];
   List<CateItemModel> _rightCateList = [];
@@ -63,8 +64,8 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
                     },
                     child: Container(
                       width: double.infinity,
-                      height: ScreenAdaper.height(84),
-                      padding: EdgeInsets.only(top: ScreenAdaper.height(24)),
+                      height: ScreenAdapter.height(84),
+                      padding: EdgeInsets.only(top: ScreenAdapter.height(24)),
                       child: Text(_leftCateList[index].title ?? '',
                           textAlign: TextAlign.center),
                       color: (_selectedIndex == index
@@ -104,18 +105,24 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
                   String pic = _rightCateList[index].pic ?? '';
                   pic = Config.domain + pic.replaceAll('\\', '/');
 
-                  return Container(
-                    child: Column(
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1 / 1,
-                          child: Image.network(pic, fit: BoxFit.cover),
-                        ),
-                        SizedBox(
-                          height: ScreenAdaper.height(28),
-                          child: Text(_rightCateList[index].title ?? ''),
-                        )
-                      ],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/productList',
+                          arguments: {'cid': _rightCateList[index].sId});
+                    },
+                    child: Container(
+                      child: Column(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1 / 1,
+                            child: Image.network(pic, fit: BoxFit.cover),
+                          ),
+                          SizedBox(
+                            height: ScreenAdapter.height(28),
+                            child: Text(_rightCateList[index].title ?? ''),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -135,11 +142,11 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    var leftWidth = ScreenAdaper.getScreenWidth() / 4;
+    var leftWidth = ScreenAdapter.getScreenWidth() / 4;
     var rightItemWidth =
-        (ScreenAdaper.getScreenWidth() - leftWidth - 20 - 20) / 3;
-    rightItemWidth = ScreenAdaper.width(rightItemWidth);
-    var rightItemHeight = rightItemWidth + ScreenAdaper.height(28);
+        (ScreenAdapter.getScreenWidth() - leftWidth - 20 - 20) / 3;
+    rightItemWidth = ScreenAdapter.width(rightItemWidth);
+    var rightItemHeight = rightItemWidth + ScreenAdapter.height(28);
 
     return Row(
       children: [

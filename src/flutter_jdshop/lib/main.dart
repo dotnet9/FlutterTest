@@ -18,10 +18,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(750, 1334),  // 配置设计稿的宽度高度
-      builder: () => const MaterialApp(
-        //home: Tabs(),
+      builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        onGenerateRoute: onGenerateRoute
+        onGenerateRoute: onGenerateRoute,
+        theme: ThemeData(
+          primaryColor: Colors.yellow
+        ),
       ),
     );
   }
