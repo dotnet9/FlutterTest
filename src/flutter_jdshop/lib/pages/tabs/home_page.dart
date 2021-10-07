@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jdshop/config/config.dart';
@@ -15,10 +13,13 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   List<FocusItemModel> _focusData = [];
   List<ProductItemModel> _hotProductList = [];
   List<ProductItemModel> _bestProductList = [];
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
